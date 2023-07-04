@@ -56,11 +56,13 @@
 <body>
     <h1>Pull Ups Logger</h1>
 
-    <label for="pull-ups">Pull ups this set:</label>
-    <input type="number" id="pull-ups" min="1" value="1">
-    <button onclick="logPullUps()">Log Pull Ups</button>
-    <button onclick="downloadData()">Download Data</button>
-    <button onclick="clearData()">Clear Data</button>
+    <div>
+        <label for="pull-ups">Pull ups this set:</label>
+        <input type="number" id="pull-ups" min="1" value="1">
+        <button onclick="logPullUps()">Log Pull Ups</button>
+        <button onclick="downloadData()">Download Data</button>
+        <button onclick="clearData()">Clear Data</button>
+    </div>
 
     <h2>Logged Sets</h2>
     <table id="log-table">
@@ -107,8 +109,14 @@
             dataSet.push(data);
             localStorage.setItem('dataSet', JSON.stringify(dataSet));
 
+
+            
+
             let row = document.createElement('tr');
             row.innerHTML = `<td>${setNumber}</td><td>${pullUps}</td><td>${totalPullUps}</td><td>${formatTime(timeSinceStart)}</td><td>${formatTime(timeForSet)}</td>`;
+
+            document.getElementById('log-table').appendChild(row);
+            row.scrollIntoView({behavior: 'smooth'});
             document.getElementById('log-table').appendChild(row);
 
             lastSetTime = currentTime;
@@ -149,3 +157,10 @@
     </script>
 </body>
 </html>
+
+
+
+<!-- 
+1. Can you add option to cancel last value ? 
+2. Add option to choose language.  Russian or English 
+3. Can you add option to import previously exported values and continue logger? -->

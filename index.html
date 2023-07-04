@@ -22,6 +22,21 @@
             margin: 5px 0;
         }
 
+        .table-container {
+            height: 60vh; /* or any other value */
+            overflow-y: auto;
+        }
+
+        .input-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -56,24 +71,26 @@
 <body>
     <h1>Pull Ups Logger</h1>
 
-    <div>
+    <h2>Logged Sets</h2>
+    <div class="table-container">
+        <table id="log-table">
+            <tr>
+                <th>Set Number</th>
+                <th>Pull Ups</th>
+                <th>Total Pull Ups</th>
+                <th>Time Since Start</th>
+                <th>Time For Set</th>
+            </tr>
+        </table>
+    </div>
+
+    <div class="input-container">
         <label for="pull-ups">Pull ups this set:</label>
         <input type="number" id="pull-ups" min="1" value="1">
         <button onclick="logPullUps()">Log Pull Ups</button>
         <button onclick="downloadData()">Download Data</button>
         <button onclick="clearData()">Clear Data</button>
     </div>
-
-    <h2>Logged Sets</h2>
-    <table id="log-table">
-        <tr>
-            <th>Set Number</th>
-            <th>Pull Ups</th>
-            <th>Total Pull Ups</th>
-            <th>Time Since Start</th>
-            <th>Time For Set</th>
-        </tr>
-    </table>
 
     <script>
         let totalPullUps = 0;

@@ -11,6 +11,12 @@
             padding: 10px;
         }
 
+        .clear-button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+
         h1 {
             text-align: center;
             color: #333;
@@ -69,6 +75,10 @@
     </style>
 </head>
 <body>
+    <div class="clear-button">
+        <button onclick="clearData()">Clear Data</button>
+    </div>
+
     <h1>Pull Ups Logger</h1>
 
     <h2>Logged Sets</h2>
@@ -89,7 +99,6 @@
         <input type="number" id="pull-ups" min="1" value="1">
         <button onclick="logPullUps()">Log Pull Ups</button>
         <button onclick="downloadData()">Download Data</button>
-        <button onclick="clearData()">Clear Data</button>
     </div>
 
     <script>

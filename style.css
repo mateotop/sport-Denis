@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    /* padding: 10px; */
+}
+
+
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+input,
+button {
+    padding: 10px;
+    font-size: 16px;
+    margin: 5px 0;
+
+}
+
+.table-container {
+    height: 60vh;
+    /* or any other value */
+    overflow-y: auto;
+    /* margin-bottom: 10px; */
+}
+
+.input-container {
+    
+    position: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-top: 1px green solid;
+}
+.input-container #pull-ups-label,
+.input-container #pull-ups {
+    margin: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+
+th {
+    position: sticky;
+    top: 0;
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 18px;
+    }
+
+    .clear-button {
+        display: flex;
+        justify-content: space-between;
+        gap: 8rem;
+        /* width: 100%; */
+        padding: 5px;
+
+    }
+
+    .language-selector {
+        display: flex;
+        width: 100;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 10px;
+
+    }
+
+    .table-container {
+        height: 40vh;
+    }
+
+    
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.1rem;
+        margin: 0;
+        padding: 0;
+    }
+    button {
+        width: 90%;
+    }
+    .input-container input {
+        width: 85%;
+    }
+    
+}

@@ -5,144 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pull Ups Logger</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            /* padding: 10px; */
-        }
-
-
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        input,
-        button {
-            padding: 10px;
-            font-size: 16px;
-            margin: 5px 0;
-
-        }
-
-        .table-container {
-            height: 60vh;
-            /* or any other value */
-            overflow-y: auto;
-            margin-bottom: 10px;
-        }
-
-        .input-container {
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            gap: 2rem;
-            
-            /* position: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%; */
-
-
-            /* padding: 20px; */
-            /* background-color: #b04b4b; */
-            /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); */
-        }
-
-        input::placeholder {
-            /* color: #fff; */
-            text-align: center;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-
-
-        th {
-            position: sticky;
-            top: 0;
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        @media (max-width: 600px) {
-            body {
-                font-size: 18px;
-            }
-
-            .clear-button {
-                display: flex;
-                justify-content: space-between;
-                gap: 8rem;
-                /* width: 100%; */
-                padding: 5px;
-
-            }
-
-            .language-selector {
-                display: flex;
-                width: 100;
-                justify-content: center;
-                gap: 0.5rem;
-                margin-top: 10px;
-
-            }
-
-            .table-container {
-                height: 40vh;
-            }
-
-            input,
-            button {
-                width: 90%;
-            }
-
-            /* .input-container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 0.1rem;
-                margin: 0;
-                padding: 0;
-            } */
-            .input-container {
-                display: grid;
-                grid-template-columns: 2fr 1fr;
-                justify-items: center;
-                gap: 2rem;
-            }
-
-            .input-container #pull-ups-label {
-                grid-column: 1 / span 2;
-            }
-            /* .input-container #pull-ups,
-            .input-container #log-button {
-                grid-column: 2 / span 2;
-            } */
-
-            /* .input-container #download-button,
-            .input-container #import-file {
-                grid-column: 1 / span 2;
-            } */
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -173,7 +36,7 @@
         <input type="number" id="pull-ups" min="1" value="1">
         <button onclick="logPullUps()" id="log-button">Log Pull Ups</button>
         <button onclick="downloadData()" id="download-button">Download Data</button>
-        <input type="file" id="import-file" onchange="importData()">
+        <input type="file" id="import-file" onchange="importData()" >
     </div>
 
 

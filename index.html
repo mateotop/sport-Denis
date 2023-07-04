@@ -78,32 +78,87 @@
 </head>
 <body>
     <div class="clear-button">
-        <button onclick="clearData()">Clear Data</button>
+        <button onclick="clearData()">Очистить данные</button>
+        <button onclick="cancelLast()">Отменить последнее</button>
     </div>
 
-    <h1>Pull Ups Logger</h1>
+    <div class="language-selector">
+        <label for="language">Язык: </label>
+        <select id="language" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+        </select>
+    </div>
 
-    <h2>Logged Sets</h2>
+    <h1>Журнал подтягиваний</h1>
+
+    <h2>Зарегистрированные наборы</h2>
     <div class="table-container">
         <table id="log-table">
-            <tr>
-                <th>Set Number</th>
-                <th>Pull Ups</th>
-                <th>Total Pull Ups</th>
-                <th>Time Since Start</th>
-                <th>Time For Set</th>
-            </tr>
+            <!-- ... -->
         </table>
     </div>
 
     <div class="input-container">
-        <label for="pull-ups">Pull ups this set:</label>
+        <label for="pull-ups">Подтягивания в этом наборе:</label>
         <input type="number" id="pull-ups" min="1" value="1">
-        <button onclick="logPullUps()">Log Pull Ups</button>
-        <button onclick="downloadData()">Download Data</button>
+        <button onclick="logPullUps()">Записать подтягивания</button>
+        <button onclick="downloadData()">Скачать данные</button>
     </div>
 
+    <input type="file" id="import-file" onchange="importData()">
+
+
     <script>
+        // New cancelLast() function
+        function cancelLast() {
+            data.pop();
+            renderTable();
+            saveData();
+        }
+
+        // New changeLanguage() function
+        function changeLanguage() {
+            var lang = document.getElementById('language').value;
+            if (lang === 'en') {
+                document.getElementById('language-selector-label').innerText = "Language: ";
+                document.getElementById('title').innerText = "Pull Ups Logger";
+                document.getElementById('logged-sets').innerText = "Logged Sets";
+                document.getElementById('pull-ups-label').innerText = "Pull ups this set:";
+                document.getElementById('log-button').innerText = "Log Pull Ups";
+                document.getElementById('download-button').innerText = "Download Data";
+                document.getElementById('clear-button').innerText = "Clear Data";
+                document.getElementById('cancel-button').innerText = "Cancel Last";
+            } else {
+                document.getElementById('language-selector-label').innerText = "Язык: ";
+                document.getElementById('title').innerText = "Журнал подтягиваний";
+                document.getElementById('logged-sets').innerText = "Зарегистрированные наборы";
+                document.getElementById('pull-ups-label').innerText = "Подтягивания в этом наборе:";
+                document.getElementById('log-button').innerText = "Записать подтягивания";
+                document.getElementById('download-button').innerText = "Скачать данные";
+                document.getElementById('clear-button').innerText = "Очистить данные";
+                document.getElementById('cancel-button').innerText = "Отменить последнее";
+            }
+        }
+
+        // New importData() function
+        function importData() {
+            var file = document.getElementById('import-file').files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var contents = e.target.result;
+                    var importedData = JSON.parse(contents);
+                    data = importedData;
+                    renderTable();
+                };
+                reader.readAsText(file);
+            }
+        }
+
+
+
+
         let totalPullUps = 0;
         let setNumber = 0;
         let startTime = Date.now();
@@ -186,9 +241,3 @@
 </body>
 </html>
 
-
-
-<!-- 
-1. Can you add option to cancel last value ? 
-2. Add option to choose language.  Russian or English 
-3. Can you add option to import previously exported values and continue logger? -->

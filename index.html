@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pull Ups Logger</title>
     <style>
         body {
@@ -24,14 +25,16 @@
             color: #333;
         }
 
-        input, button {
+        input,
+        button {
             padding: 10px;
             font-size: 16px;
             margin: 5px 0;
         }
 
         .table-container {
-            height: 60vh; /* or any other value */
+            height: 60vh;
+            /* or any other value */
             overflow-y: auto;
         }
 
@@ -42,7 +45,7 @@
             width: 100%;
             padding: 20px;
             background-color: #f9f9f9;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
         }
 
         table {
@@ -50,13 +53,17 @@
             border-collapse: collapse;
         }
 
-        th, td {
+        th,
+        td {
             padding: 10px;
             border: 1px solid #ddd;
             text-align: center;
         }
 
+        
         th {
+            position: sticky;
+            top: 0;
             background-color: #4CAF50;
             color: white;
         }
@@ -70,29 +77,31 @@
                 font-size: 18px;
             }
 
-            input, button {
+            input,
+            button {
                 width: 90%;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="clear-button">
-        <button onclick="clearData()">Очистить данные</button>
-        <button onclick="cancelLast()">Отменить последнее</button>
+        <button onclick="clearData()" id="clear-button">Clear Data</button>
+        <button onclick="cancelLast()" id="cancel-button">Cancel Last</button>
     </div>
 
-    <div class="language-selector">
-        <label for="language">Язык: </label>
+    <div class="language-selector" >
+        <label for="language" id="language-selector-label">Lang: </label>
         <select id="language" onchange="changeLanguage()">
             <option value="en">English</option>
             <option value="ru">Русский</option>
         </select>
     </div>
 
-    <h1>Журнал подтягиваний</h1>
+    <h1 id="title">Pull Ups Logger</h1>
 
-    <h2>Зарегистрированные наборы</h2>
+    <h2 id="logged-sets">Logged Sets</h2>
     <div class="table-container">
         <table id="log-table">
             <!-- ... -->
@@ -100,144 +109,17 @@
     </div>
 
     <div class="input-container">
-        <label for="pull-ups">Подтягивания в этом наборе:</label>
+        <label for="pull-ups" id="pull-ups-label">Pull ups current set:</label>
         <input type="number" id="pull-ups" min="1" value="1">
-        <button onclick="logPullUps()">Записать подтягивания</button>
-        <button onclick="downloadData()">Скачать данные</button>
+        <button onclick="logPullUps()" id="log-button">Log Pull Ups</button>
+        <button onclick="downloadData()" id="download-button">Download Data</button>
     </div>
 
     <input type="file" id="import-file" onchange="importData()">
 
 
-    <script>
-        // New cancelLast() function
-        function cancelLast() {
-            data.pop();
-            renderTable();
-            saveData();
-        }
-
-        // New changeLanguage() function
-        function changeLanguage() {
-            var lang = document.getElementById('language').value;
-            if (lang === 'en') {
-                document.getElementById('language-selector-label').innerText = "Language: ";
-                document.getElementById('title').innerText = "Pull Ups Logger";
-                document.getElementById('logged-sets').innerText = "Logged Sets";
-                document.getElementById('pull-ups-label').innerText = "Pull ups this set:";
-                document.getElementById('log-button').innerText = "Log Pull Ups";
-                document.getElementById('download-button').innerText = "Download Data";
-                document.getElementById('clear-button').innerText = "Clear Data";
-                document.getElementById('cancel-button').innerText = "Cancel Last";
-            } else {
-                document.getElementById('language-selector-label').innerText = "Язык: ";
-                document.getElementById('title').innerText = "Журнал подтягиваний";
-                document.getElementById('logged-sets').innerText = "Зарегистрированные наборы";
-                document.getElementById('pull-ups-label').innerText = "Подтягивания в этом наборе:";
-                document.getElementById('log-button').innerText = "Записать подтягивания";
-                document.getElementById('download-button').innerText = "Скачать данные";
-                document.getElementById('clear-button').innerText = "Очистить данные";
-                document.getElementById('cancel-button').innerText = "Отменить последнее";
-            }
-        }
-
-        // New importData() function
-        function importData() {
-            var file = document.getElementById('import-file').files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var contents = e.target.result;
-                    var importedData = JSON.parse(contents);
-                    data = importedData;
-                    renderTable();
-                };
-                reader.readAsText(file);
-            }
-        }
-
-
-
-
-        let totalPullUps = 0;
-        let setNumber = 0;
-        let startTime = Date.now();
-        let lastSetTime = startTime;
-        let dataSet = JSON.parse(localStorage.getItem('dataSet')) || [];
-
-        function formatTime(timeInMs) {
-            let timeInSeconds = Math.floor(timeInMs / 1000);
-            let hours = Math.floor(timeInSeconds / 3600);
-            let minutes = Math.floor((timeInSeconds - (hours * 3600)) / 60);
-            let seconds = timeInSeconds - (hours * 3600) - (minutes * 60);
-            return `${hours}:${minutes}:${seconds}`;
-        }
-
-        function logPullUps() {
-            let pullUps = parseInt(document.getElementById('pull-ups').value);
-            totalPullUps += pullUps;
-            setNumber += 1;
-            
-            let currentTime = Date.now();
-            let timeSinceStart = currentTime - startTime;
-            let timeForSet = currentTime - lastSetTime;
-
-            let data = {
-                setNumber: setNumber,
-                pullUps: pullUps,
-                totalPullUps: totalPullUps,
-                timeSinceStart: timeSinceStart,
-                timeForSet: timeForSet
-            };
-            dataSet.push(data);
-            localStorage.setItem('dataSet', JSON.stringify(dataSet));
-
-
-            
-
-            let row = document.createElement('tr');
-            row.innerHTML = `<td>${setNumber}</td><td>${pullUps}</td><td>${totalPullUps}</td><td>${formatTime(timeSinceStart)}</td><td>${formatTime(timeForSet)}</td>`;
-
-            document.getElementById('log-table').appendChild(row);
-            row.scrollIntoView({behavior: 'smooth'});
-            document.getElementById('log-table').appendChild(row);
-
-            lastSetTime = currentTime;
-        }
-
-        function downloadData() {
-            let json = JSON.stringify(dataSet, null, 2);
-            let blob = new Blob([json], {type: "application/json"});
-            let url  = URL.createObjectURL(blob);
-
-            let a = document.createElement('a');
-            a.download = 'data.json';
-            a.href = url;
-            a.click();
-        }
-
-        function clearData() {
-            if (confirm('Are you sure you want to clear all data and start a new session?')) {
-                totalPullUps = 0;
-                setNumber = 0;
-                startTime = Date.now();
-                lastSetTime = startTime;
-                dataSet = [];
-                localStorage.setItem('dataSet', JSON.stringify(dataSet));
-                document.getElementById('log-table').innerHTML = '<tr><th>Set Number</th><th>Pull Ups</th><th>Total Pull Ups</th><th>Time Since Start</th><th>Time For Set</th></tr>';
-            }
-        }
-
-        // Populate table with data from previous session
-        dataSet.forEach(data => {
-            let row = document.createElement('tr');
-            row.innerHTML = `<td>${data.setNumber}</td><td>${data.pullUps}</td><td>${data.totalPullUps}</td><td>${formatTime(data.timeSinceStart)}</td><td>${formatTime(data.timeForSet)}</td>`;
-            document.getElementById('log-table').appendChild(row);
-            totalPullUps = data.totalPullUps;
-            setNumber = data.setNumber;
-            lastSetTime = data.timeForSet + lastSetTime;
-        });
-    </script>
+    
 </body>
-</html>
+<script src="script.js"></script>
 
+</html>

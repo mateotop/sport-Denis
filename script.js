@@ -85,7 +85,7 @@ function changeLanguage() {
     if (lang === 'en') {
         document.getElementById('language-selector-label').innerText = "Language: ";
         document.getElementById('title').innerText = "Pull Ups Logger";
-        document.getElementById('logged-sets').innerText = "Logged Sets";
+        // document.getElementById('logged-sets').innerText = "Logged Sets";
         document.getElementById('pull-ups-label').innerText = "Pull ups current set:";
         document.getElementById('log-button').innerText = "Log Pull Ups";
         document.getElementById('download-button').innerText = "Download Data";
@@ -94,7 +94,7 @@ function changeLanguage() {
     } else {
         document.getElementById('language-selector-label').innerText = "Язык: ";
         document.getElementById('title').innerText = "Журнал подтягиваний";
-        document.getElementById('logged-sets').innerText = "Всего подходов";
+        // document.getElementById('logged-sets').innerText = "Всего подходов";
         document.getElementById('pull-ups-label').innerText = "Подтягивания в этом подходе:";
         document.getElementById('log-button').innerText = "Записать подтягивания";
         document.getElementById('download-button').innerText = "Скачать данные";
@@ -106,16 +106,17 @@ function changeLanguage() {
 
 function renderTable() {
     document.getElementById('log-table').innerHTML = `<tr>
-        <th>${document.getElementById('language').value === 'en' ? 'Set Number' : 'Номер набора'}</th>
+        <th>${document.getElementById('language').value === 'en' ? 'Set Number' : '№ Подход'}</th>
         <th>${document.getElementById('language').value === 'en' ? 'Pull Ups' : 'Подтягивания'}</th>
         <th>${document.getElementById('language').value === 'en' ? 'Total Pull Ups' : 'Всего подтягиваний'}</th>
-        <th>${document.getElementById('language').value === 'en' ? 'Time Since Start' : 'Время с начала'}</th>
-        <th>${document.getElementById('language').value === 'en' ? 'Time For Set' : 'Время для набора'}</th>
+        <th>${document.getElementById('language').value === 'en' ? 'Time Total' : 'Время всего'}</th>
+        <th>${document.getElementById('language').value === 'en' ? 'Time For Set' : 'Время подхода'}</th>
     </tr>`;
     dataSet.forEach(data => {
         let row = document.createElement('tr');
         row.innerHTML = `<td>${data.setNumber}</td><td>${data.pullUps}</td><td>${data.totalPullUps}</td><td>${formatTime(data.timeSinceStart)}</td><td>${formatTime(data.timeForSet)}</td>`;
         document.getElementById('log-table').appendChild(row);
+        row.scrollIntoView();
         totalPullUps = data.totalPullUps;
         setNumber = data.setNumber;
         lastSetTime = data.timeForSet + lastSetTime;

@@ -9,16 +9,10 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 10px;
+            /* padding: 10px; */
         }
 
-        .clear-button {
-            width: 100%;
-            margin: 0 auto;
-            padding: 0;
-            top: 10px;
-            left: 10px;
-        }
+
 
         h1 {
             text-align: center;
@@ -30,25 +24,27 @@
             padding: 10px;
             font-size: 16px;
             margin: 5px 0;
-            
+
         }
 
         .table-container {
             height: 60vh;
             /* or any other value */
             overflow-y: auto;
+            margin-bottom: 10px;
         }
 
         .input-container {
-            display: flex;
+            position: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.1rem;
             width: 100%;
-            background-color: #f9f9f9;
-            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            /* padding: 20px; */
+            /* background-color: #b04b4b; */
+            /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); */
         }
-        input::placeholder{
+
+        input::placeholder {
             /* color: #fff; */
             text-align: center;
         }
@@ -65,7 +61,7 @@
             text-align: center;
         }
 
-        
+
         th {
             position: sticky;
             top: 0;
@@ -82,13 +78,40 @@
                 font-size: 18px;
             }
 
+            .clear-button {
+                display: flex;
+                justify-content: space-between;
+                gap: 8rem;
+                /* width: 100%; */
+                padding: 5px;
+
+            }
+
+            .language-selector {
+                display: flex;
+                width: 100;
+                justify-content: center;
+                gap: 0.5rem;
+                margin-top: 10px;
+
+            }
+
             .table-container {
-            height: 40vh;
+                height: 40vh;
             }
 
             input,
             button {
                 width: 90%;
+            }
+
+            .input-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.1rem;
+                margin: 0;
+                padding: 0;
             }
         }
     </style>
@@ -100,7 +123,7 @@
         <button onclick="cancelLast()" id="cancel-button">Cancel Last</button>
     </div>
 
-    <div class="language-selector" >
+    <div class="language-selector">
         <label for="language" id="language-selector-label">Lang: </label>
         <select id="language" onchange="changeLanguage()">
             <option value="en">English</option>
@@ -122,12 +145,12 @@
         <input type="number" id="pull-ups" min="1" value="1">
         <button onclick="logPullUps()" id="log-button">Log Pull Ups</button>
         <button onclick="downloadData()" id="download-button">Download Data</button>
+        <input type="file" id="import-file" onchange="importData()">
     </div>
 
-    <input type="file" id="import-file" onchange="importData()">
 
 
-    
+
 </body>
 <script src="script.js"></script>
 

@@ -1,3 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik:700&display=swap');
+
+:root {
+    --bg: #fff;
+    --text: #395c33;
+    
+    --color-light-main: #f3fff0;
+    --color-main: #d6ffd8;
+    --color-main-dark: #a2e6ab;
+    --color-main-border: #67b86f;
+    --color-main-shadow: #c8ffd0;
+    --color-sign: var(--color-main-dark);
+    --color-input-stroke: var(--color-main-dark);
+    --color-sign-hover: var(--color-main-border);
+    
+    /* pink */
+    /* --color-light-main: #fff0f0;
+    --color-main: #ffe9e9;
+    --color-main-dark: #f9c4d2;
+    --color-main-border: #b18597;
+    --color-main-shadow: #ffe3e2; */
+
+    --input-number-field-width: 80px;
+    --input-Btn-width: 40px;
+    --input-Btn-height: 40px;
+
+
+    --log-btn-width: 20rem;
+    --color-log-btn-bg: var(--color-main);
+    --color-log-btn-text: var(--text);
+    --color-log-btn-border: var(--color-main-border);
+
+    --color-table-headers: #4CAF50;
+    --color-table-headers-text: white;
+    --color-table-row-even: #f2f2f2;
+    --color-table-cell-border: #ddd;
+    --color-table-hove-cell: var(--color-light-main);
+
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -9,101 +55,295 @@ body {
 h1 {
     text-align: center;
     color: #333;
+    margin-bottom: 10px;
 }
 
-input,
-button {
+
+/* ==============Menu: Side bar  ============================================*/
+
+/* -------menu icon------- */
+#menu__toggle {
+    opacity: 0;
+}
+
+#menu__toggle:checked+.menu__btn>span {
+    transform: rotate(45deg);
+}
+
+#menu__toggle:checked+.menu__btn>span::before {
+    top: 0;
+    transform: rotate(0deg);
+}
+
+#menu__toggle:checked+.menu__btn>span::after {
+    top: 0;
+    transform: rotate(90deg);
+}
+
+#menu__toggle:checked~.menu__box {
+    left: 0 !important;
+}
+
+.menu__btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.menu__btn>span,
+.menu__btn>span::before,
+.menu__btn>span::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #616161;
+    transition-duration: .25s;
+}
+
+.menu__btn>span::before {
+    content: '';
+    top: -8px;
+}
+
+.menu__btn>span::after {
+    content: '';
+    top: 8px;
+}
+
+/* -------menu side bar and buttons------- */
+
+.menu__box {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 300px;
+    height: 100%;
+    margin: 0;
+    padding: 80px 0;
+    list-style: none;
+    background-color: #ECEFF1;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+    transition-duration: .25s;
+    z-index: 2;
+
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: scroll;
+}
+
+.flex-column::-webkit-scrollbar {
+    display: none;
+}
+
+.menu__box li {
+    /* margin-left: 2rem; */
+    margin-bottom: 1rem;
+    text-align: center;
+    
+}
+
+.menu__splitter {
+    height: 50px; 
+    display: block;
+}
+
+.btn__stnd {
+    color: var(--text);
+    min-height: 40px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border: 2px solid #333;
+
+}
+
+.btn__stnd:hover {
+    cursor: pointer;
+    background: var(--color-main-border);
+    color: var(--color-light-main);
+}
+
+/* Import Table Button */
+input#import-file[type="file"] {
+    display: none;
+}
+
+
+/* Lang selector in menu */
+
+.language-selector {
+    /* margin-top: ; */
+    text-align: left;
+}
+#language-selector-label {
+    text-align: left;
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+select {
+    width: 200px;
+    min-height: 40px;
+    color: #fff;
+    background: var(--color-main-border);
+}
+
+.flex-column li:last-child {
+    margin-top: auto;
+    align-items: flex-end;
+    /* border: 1px solid #333;
     padding: 10px;
-    font-size: 16px;
-    margin: 5px 0;
-
+    border-radius: 15%; */
+    
 }
+/* ==============Input Field. Plus Minus===================*/
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 20px;
+}
+
+
+
+.quantity_inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 26px;
+    border: 4px solid var(--color-input-stroke);
+}
+
+.quantity_inner .bt_minus,
+.quantity_inner .bt_plus {
+    height: var(--input-Btn-height);
+    width: var(--input-Btn-width);
+}
+.quantity_inner #input-pull-ups {
+    width: var(--input-number-field-width);
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--text);
+    /* font-family: Menlo, Monaco, Consolas, "Courier New", monospace; */
+}
+.quantity_inner .bt_minus,
+.quantity_inner .bt_plus,
+.quantity_inner #input-pull-ups {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+    outline: 0;
+}
+
+
+.quantity_inner .bt_minus svg,
+.quantity_inner .bt_plus svg {
+    stroke: var(--color-sign);
+    stroke-width: 4;
+    transition: 0.15s;
+    margin: 10px;
+}
+
+.quantity_inner .bt_minus:hover svg,
+.quantity_inner .bt_plus:hover svg {
+    stroke: var(--color-sign-hover);
+}
+
+
+
+/* ================Table ======================== */
 
 .table-container {
     height: 60vh;
     /* or any other value */
     overflow-y: auto;
     /* margin-bottom: 10px; */
-}
-
-.input-container {
-    
-    position: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    border-top: 1px green solid;
-}
-.input-container #pull-ups-label,
-.input-container #pull-ups {
-    margin: 10px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
 }
 
 table {
-    width: 100%;
+    /* width: 100%; */
     border-collapse: collapse;
 }
 
 th,
 td {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-table-cell-border);
     text-align: center;
+}
+
+td:hover {
+    background: var(--color-table-hove-cell);
 }
 
 
 th {
     position: sticky;
     top: 0;
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--color-table-headers);
+    color: var(--color-table-headers-text);
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: var(--color-table-row-even);
 }
+
+
+/* ==============Button Log Pull Ups========================*/
+
+button#log-button {
+    width: calc(var(--input-number-field-width) + var(--input-Btn-height) * 2);
+    height: calc(var(--input-Btn-height) * 1.5);
+    background: var(--color-log-btn-bg);
+    color: var(--color-log-btn-text);
+    border: 2px solid var(--color-log-btn-border);
+    border-radius: 10px;
+    box-shadow: 4px 4px 0 var(--color-log-btn-border);
+    transition: all 0.3s;
+}
+
+button#log-button:hover {
+    box-shadow: 1px 1px 0 var(--color-log-btn-border);
+
+}
+
+/* ==================Mobile =================================== */
 
 @media (max-width: 600px) {
     body {
         font-size: 18px;
     }
 
-    .clear-button {
-        display: flex;
-        justify-content: space-between;
-        gap: 8rem;
-        /* width: 100%; */
-        padding: 5px;
-
-    }
-
-    .language-selector {
-        display: flex;
-        width: 100;
-        justify-content: center;
-        gap: 0.5rem;
-        margin-top: 10px;
-
-    }
 
     .table-container {
         height: 40vh;
     }
 
-    
-    .input-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.1rem;
-        margin: 0;
-        padding: 0;
-    }
-    button {
-        width: 90%;
-    }
-    .input-container input {
-        width: 85%;
-    }
-    
 }

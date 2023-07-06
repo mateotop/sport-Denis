@@ -4,22 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pull Ups Logger</title>
+    <title id="title">Pull Ups Logger</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="clear-button">
-        <button onclick="clearData()" id="clear-button">Clear Data</button>
-        <button onclick="cancelLast()" id="cancel-button">Cancel Last</button>
-    </div>
 
-    <div class="language-selector">
-        <label for="language" id="language-selector-label">Lang: </label>
-        <select id="language" onchange="changeLanguage()">
-            <option value="en">English</option>
-            <option value="ru">Русский</option>
-        </select>
+    <div class="hamburger-menu">
+        <input id="menu__toggle" type="checkbox" />
+        <label class="menu__btn" for="menu__toggle">
+            <span></span>
+        </label>
+
+        <ul class="menu__box flex-column">
+            <li>
+                <button onclick="cancelLast()" class="btn__stnd" id="cancel-button">
+                    <span>Cancel Last</span>
+                </button>
+            </li>
+            <li>
+                <button onclick="clearData()" class="btn__stnd" id="clear-button">
+                    <span>Clear Data</span>
+                </button>
+            </li>
+            <li class="menu__splitter"></li>
+            <li>
+                <button onclick="downloadData()" class="btn__stnd" id="download-button">
+                    <span>Download Data</span>
+                </button>
+            </li>
+            <li>
+                <input type="file" id="import-file" accept="application/JSON">
+                <label for="import-file" id="import-file" class="btn__stnd">
+                    <span id="importt">Import Pull-Ups</span>
+                </label>
+            </li>
+            <li>
+                <div class="language-selector">
+                    <label for="language" id="language-selector-label">Lang: </label>
+                    <select id="language" onchange="changeLanguage()">
+                        <option value="en">English</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                </div>
+            </li> 
+        </ul>
     </div>
 
     <h1 id="title">Pull Ups Logger</h1>
@@ -32,11 +61,27 @@
     </div>
 
     <div class="input-container">
-        <label for="pull-ups" id="pull-ups-label">Pull ups current set:</label>
-        <input type="number" id="pull-ups" min="1" value="1">
-        <button onclick="logPullUps()" id="log-button">Log Pull Ups</button>
-        <button onclick="downloadData()" id="download-button">Download Data</button>
-        <input type="file" id="import-file" onchange="importData()" >
+        <p id="pull-ups-label"></p>
+        <div class="quantity_inner grid-row-2">
+            <button class="bt_minus" onclick="btnMinus()">
+                <svg viewBox="0 0 24 24">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+            <!-- <label for="pull-ups" id="pull-ups-label">
+                <span>Pull ups current set:</span>
+            </label> -->
+            <input type="text" class="quantity" id="input-pull-ups" min="1" value="1" >
+            <!-- <input type="text" id="pull-ups" value="1" size="2" class="quantity" data-max-count="20" /> -->
+            <button class="bt_plus" onclick="btnPlus()">
+                <svg viewBox="0 0 24 24">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+        </div>
+        <button onclick="logPullUps()" id="log-button" class="grid-row-2">Log Pull Ups</button>
+
     </div>
 
 

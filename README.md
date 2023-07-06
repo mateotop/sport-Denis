@@ -5,7 +5,7 @@ Logger app for pull ups train. Inspired by Denis Seminikhin.
 https://projects.mateofpv.ru/projects/app-sport-2/index.html  
 
 Now this app looks like this:  
-![](img/denis_demo_1.png)
+![](img/denis_demo_2.png)
 
 [Watch challenge with Denis](https://youtu.be/udu8gB4VWIA)
 

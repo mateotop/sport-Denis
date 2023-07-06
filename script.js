@@ -146,9 +146,12 @@ function importData() {
     }
 }
 
-function changeLanguage() {
-    let lang = document.getElementById('language').value;
-    
+function changeLanguage(lang = '') {
+    lang = lang.length > 0 ? lang : document.getElementById('language').value;
+
+  document.getElementById('language').value = lang;
+  localStorage.setItem('langSave', lang);
+
     if (lang === 'en') {
         document.getElementById('language-selector-label').innerText = "Language: ";
         document.getElementById('title').innerText = "Pull Ups Logger";
@@ -161,7 +164,7 @@ function changeLanguage() {
         document.getElementById('importt').innerText = "Import Table";
     } else {
         document.getElementById('language-selector-label').innerText = "Язык: ";
-        document.getElementById('title').innerText = "Журнал подтягиваний";
+        document.querySelector('h1#title').innerText = "Журнал подтягиваний";
         // document.getElementById('logged-sets').innerText = "Всего подходов";
         document.getElementById('pull-ups-label').innerText = "Подтягивания в этом подходе:";
         document.getElementById('log-button').innerText = "Записать";
@@ -198,6 +201,22 @@ function renderTable() {
         lastSetTime = data.timeForSet + lastSetTime;
     });
 }
+// Get the saved language option from localStorage or use the default value
+let langSave = localStorage.getItem('langSave');
+
+// Check if it's the user's first visit and set language based on browser settings
+if (!langSave) {
+    let browserLang = window.navigator.language || window.navigator.browserLanguage;
+    langSave = browserLang;
+    localStorage.setItem('langSave', browserLang);
+  }
+
+
+// Check the saved language option and call changeLanguage accordingly
+if (langSave === 'ru') {
+  changeLanguage('ru');
+} else {
+  changeLanguage('en');
+}
 
 renderTable();
-changeLanguage();

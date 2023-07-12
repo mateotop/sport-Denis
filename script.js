@@ -61,17 +61,17 @@ function btnPlus() {
 let inputField = document.getElementById('input-pull-ups');
 
 // Add an input event listener to validate the input
-inputField.addEventListener('input', function() {
-  let inputValue = inputField.value.trim();
-  
-  // Use a regular expression to check if the input matches the desired pattern
-  let numberPattern = /^-?\d*$/;
-  let isValid = numberPattern.test(inputValue);
-  
-  // If the input is not valid, remove the last entered character
-  if (!isValid) {
-    inputField.value = inputValue.slice(0, -1);
-  }
+inputField.addEventListener('input', function () {
+    let inputValue = inputField.value.trim();
+
+    // Use a regular expression to check if the input matches the desired pattern
+    let numberPattern = /^-?\d*$/;
+    let isValid = numberPattern.test(inputValue);
+
+    // If the input is not valid, remove the last entered character
+    if (!isValid) {
+        inputField.value = inputValue.slice(0, -1);
+    }
 });
 
 
@@ -149,12 +149,13 @@ function importData() {
 function changeLanguage(lang = '') {
     lang = lang.length > 0 ? lang : document.getElementById('language').value;
 
-  document.getElementById('language').value = lang;
-  localStorage.setItem('langSave', lang);
+    document.getElementById('language').value = lang;
+    localStorage.setItem('langSave', lang);
+    const btns = document.getElementsByClassName('btn__stnd')
 
     if (lang === 'en') {
         document.getElementById('language-selector-label').innerText = "Language: ";
-        document.getElementById('title').innerText = "Pull Ups Logger";
+        document.querySelector('h1#title').innerText = "Pull Ups Logger";
         // document.getElementById('logged-sets').innerText = "Logged Sets";
         document.getElementById('pull-ups-label').innerText = "Pull ups current set:";
         document.getElementById('log-button').innerText = "Log";
@@ -162,6 +163,8 @@ function changeLanguage(lang = '') {
         document.getElementById('cancel-button').innerText = "Cancel Last Row";
         document.getElementById('download-button').innerText = "Download Table";
         document.getElementById('importt').innerText = "Import Table";
+
+        Array.prototype.forEach.call(btns,(btn) => btn.style["letter-spacing"] = "2px")
     } else {
         document.getElementById('language-selector-label').innerText = "Язык: ";
         document.querySelector('h1#title').innerText = "Журнал подтягиваний";
@@ -173,6 +176,7 @@ function changeLanguage(lang = '') {
         document.getElementById('clear-button').innerText = "Очистить таблицу";
         document.getElementById('cancel-button').innerText = "Удалить строку";
 
+        Array.prototype.forEach.call(btns,(btn) => btn.style["letter-spacing"] = 0)
     }
     renderTable();
 }
@@ -209,14 +213,14 @@ if (!langSave) {
     let browserLang = window.navigator.language || window.navigator.browserLanguage;
     langSave = browserLang;
     localStorage.setItem('langSave', browserLang);
-  }
+}
 
 
 // Check the saved language option and call changeLanguage accordingly
 if (langSave === 'ru') {
-  changeLanguage('ru');
+    changeLanguage('ru');
 } else {
-  changeLanguage('en');
+    changeLanguage('en');
 }
 
 renderTable();
